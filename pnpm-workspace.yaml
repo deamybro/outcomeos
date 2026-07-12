@@ -4,8 +4,8 @@ packages:
 overrides:
   postcss: 8.5.16
 
-onlyBuiltDependencies:
-  - "@google/genai"
-  - protobufjs
-  - sharp
-  - unrs-resolver
+allowBuilds:
+  "@google/genai": true
+  protobufjs: true
+  sharp: true
+  unrs-resolver: true

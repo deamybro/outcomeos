@@ -6,6 +6,9 @@ test-results/
 playwright-report/
 .env
 .env*.local
-!.env.example
 *.tsbuildinfo
 dist/
+
+.vercel
+.env*
+!.env.example

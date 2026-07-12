@@ -1,0 +1,21 @@
+name: Controlled OutcomeOS verification
+on: {workflow_dispatch: {}, workflow_call: {}}
+permissions: {contents: read}
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 22, cache: pnpm}
+      - run: pnpm install --frozen-lockfile
+      - name: Run declared checks
+        run: pnpm lint && pnpm typecheck && pnpm test && pnpm build
+      - name: Machine-readable result
+        if: always()
+        run: node -e "require('fs').writeFileSync('outcomeos-result.json',JSON.stringify({workflow:'outcomeos-verify',status:'completed',commit:process.env.GITHUB_SHA}))"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: outcomeos-verification, path: outcomeos-result.json, retention-days: 7}

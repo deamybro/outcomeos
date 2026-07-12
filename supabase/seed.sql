@@ -1,0 +1,2 @@
+-- Demo data only. Run after creating a local auth user and substitute its UUID.
+-- The application also ships safe in-memory demo content so guest mode never needs privileged database access.
